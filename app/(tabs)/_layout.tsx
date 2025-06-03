@@ -14,26 +14,44 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
+        tabBarActiveTintColor: Colors[colorScheme ?? "light"].primary,
+        tabBarInactiveTintColor: Colors[colorScheme ?? "light"].icon,
         headerShown: false,
         tabBarButton: HapticTab,
         tabBarBackground: TabBarBackground,
         tabBarStyle: Platform.select({
           ios: {
-            // Use a transparent background on iOS to show the blur effect
             position: "absolute",
+            backgroundColor: Colors[colorScheme ?? "light"].tabBarBackground,
+            borderTopWidth: 1,
+            borderTopColor: Colors[colorScheme ?? "light"].lightGray,
+            paddingTop: 5,
+            paddingBottom: 5,
+            height: 60,
           },
-          default: {},
+          default: {
+            backgroundColor: Colors[colorScheme ?? "light"].tabBarBackground,
+            borderTopWidth: 1,
+            borderTopColor: Colors[colorScheme ?? "light"].lightGray,
+            paddingTop: 5,
+            paddingBottom: 5,
+            height: 60,
+          },
         }),
       }}
     >
       <Tabs.Screen
         name="home"
         options={{
-          title: "Início",
+          title: "Home",
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="home" size={size} color={color} />
+            <Ionicons name="home" size={24} color={color} />
           ),
+          tabBarLabelStyle: {
+            fontSize: 12,
+            fontFamily: Platform.OS === 'ios' ? 'System' : 'Roboto',
+            fontWeight: '500',
+          },
         }}
       />
       <Tabs.Screen
@@ -41,8 +59,13 @@ export default function TabLayout() {
         options={{
           title: "Mapa",
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="map" size={size} color={color} />
+            <Ionicons name="location" size={24} color={color} />
           ),
+          tabBarLabelStyle: {
+            fontSize: 12,
+            fontFamily: Platform.OS === 'ios' ? 'System' : 'Roboto',
+            fontWeight: '500',
+          },
         }}
       />
       <Tabs.Screen
@@ -50,17 +73,27 @@ export default function TabLayout() {
         options={{
           title: "Dicas",
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="bulb" size={size} color={color} />
+            <Ionicons name="heart" size={24} color={color} />
           ),
+          tabBarLabelStyle: {
+            fontSize: 12,
+            fontFamily: Platform.OS === 'ios' ? 'System' : 'Roboto',
+            fontWeight: '500',
+          },
         }}
       />
       <Tabs.Screen
         name="about"
         options={{
-          title: "Sobre",
+          title: "Sobre o App",
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="information-circle" size={size} color={color} />
+            <Ionicons name="settings" size={24} color={color} />
           ),
+          tabBarLabelStyle: {
+            fontSize: 12,
+            fontFamily: Platform.OS === 'ios' ? 'System' : 'Roboto',
+            fontWeight: '500',
+          },
         }}
       />
     </Tabs>

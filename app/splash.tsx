@@ -32,7 +32,7 @@ export default function Splash() {
 
       <View style={styles.content}>
         <Image
-          source={require("../assets/images/logo-aura.png")}
+          source={require("../assets/images/AuraSmartLogo.png")}
           style={styles.logoImage}
           resizeMode="contain"
         />
