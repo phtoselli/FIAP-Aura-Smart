@@ -6,9 +6,10 @@ export default function Splash() {
   const router = useRouter();
 
   useEffect(() => {
+    console.log("🚀 Splash carregada");
     const timer = setTimeout(() => {
-      router.replace("/home");
-    }, 2000);
+      router.replace("/(tabs)/home");
+    }, 10000);
 
     return () => clearTimeout(timer);
   }, []);
