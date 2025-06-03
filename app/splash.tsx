@@ -27,13 +27,15 @@ export default function Splash() {
       <Image
         source={require("../assets/images/splash-drone.png")}
         style={styles.droneImage}
-        resizeMode="cover" // Para cobrir toda a largura
+        resizeMode="cover"
       />
 
       <View style={styles.content}>
-        <Text style={styles.logo}>
-          Aura<Text style={styles.plus}>+</Text>Smart
-        </Text>
+        <Image
+          source={require("../assets/images/logo-aura.png")}
+          style={styles.logoImage}
+          resizeMode="contain"
+        />
 
         <Text style={styles.subtitle}>for smart cities</Text>
 
@@ -67,13 +69,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     paddingTop: 20,
   },
-  logo: {
-    fontSize: 32,
-    fontWeight: "800",
-    color: "#000",
-  },
-  plus: {
-    color: "#E53935",
+
+  logoImage: {
+    width: 200,
+    height: 60,
+    marginBottom: 8,
   },
   subtitle: {
     fontSize: 16,
