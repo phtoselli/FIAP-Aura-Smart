@@ -1,78 +1,93 @@
-import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, Dimensions } from "react-native";
-import MapView, { Marker, Polyline } from "react-native-maps";
-import axios from "axios";
+import React from "react";
+import { View, Text, StyleSheet } from "react-native";
+import MapView, { Marker } from "react-native-maps";
+import MapViewDirections from "react-native-maps-directions";
+import { useShelterRoute } from "../../hooks/useShelterRoute";
+
+const shelters = [
+  {
+    id: "1",
+    name: "Abrigo Central",
+    address: "Rua A, 123",
+    location: { latitude: -23.561684, longitude: -46.625378 },
+  },
+  {
+    id: "2",
+    name: "Abrigo Leste",
+    address: "Rua B, 456",
+    location: { latitude: -23.563, longitude: -46.635 },
+  },
+  {
+    id: "3",
+    name: "Abrigo Santa Rosália",
+    address:
+      "Rua Capitão Bento Mascarenhas Jequitinhonha, 789 - Santa Rosália, Sorocaba - SP",
+    location: { latitude: -23.493478, longitude: -47.448853 },
+  },
+];
+
+const GOOGLE_MAPS_APIKEY = "segredo";
 
 export default function MapScreen() {
-  const [routeCoords, setRouteCoords] = useState([]);
-  const userLocation = { latitude: -23.5631, longitude: -46.6544 }; // Localização atual simulada
-  const shelterLocation = { latitude: -23.5505, longitude: -46.6333 }; // Local do abrigo
+  const { userLocation, nearestShelter } = useShelterRoute(shelters);
 
-  useEffect(() => {
-    fetchRoute();
-  }, []);
-
-  const fetchRoute = async () => {
-    const url = `https://api.openrouteservice.org/v2/directions/foot-walking?api_key=5b3ce3597851110001cf62486b739c186c074617b1325b7af5b1d5d0`;
-    const coordinates = {
-      coordinates: [
-        [userLocation.longitude, userLocation.latitude],
-        [shelterLocation.longitude, shelterLocation.latitude],
-      ],
-    };
-
-    try {
-      const response = await axios.post(url, coordinates, {
-        headers: { "Content-Type": "application/json" },
-      });
-
-      const coords = response.data.features[0].geometry.coordinates.map(
-        (coord: number[]) => ({
-          latitude: coord[1],
-          longitude: coord[0],
-        })
-      );
-
-      setRouteCoords(coords);
-    } catch (error) {
-      console.error("Erro ao buscar rota:", error);
-    }
-  };
+  if (!userLocation) {
+    return (
+      <View style={styles.center}>
+        <Text>Carregando sua localização...</Text>
+      </View>
+    );
+  }
 
   return (
-    <View style={styles.container}>
-      <MapView
-        style={styles.map}
-        initialRegion={{
-          latitude: userLocation.latitude,
-          longitude: userLocation.longitude,
-          latitudeDelta: 0.05,
-          longitudeDelta: 0.05,
-        }}
-      >
-        <Marker coordinate={userLocation} title="Você" />
+    <MapView
+      style={styles.map}
+      initialRegion={{
+        latitude: userLocation.latitude,
+        longitude: userLocation.longitude,
+        latitudeDelta: 0.05,
+        longitudeDelta: 0.05,
+      }}
+    >
+      {/* Localização do Usuário */}
+      <Marker
+        coordinate={userLocation}
+        title="Você está aqui"
+        pinColor="blue"
+      />
+
+      {/* Marcadores dos abrigos */}
+      {shelters.map((shelter) => (
         <Marker
-          coordinate={shelterLocation}
-          title="Abrigo"
-          description="Endereço do Abrigo"
-          pinColor="green"
+          key={shelter.id}
+          coordinate={shelter.location}
+          title={shelter.name}
+          description={shelter.address}
+          pinColor={shelter.id === nearestShelter?.id ? "green" : "red"}
         />
-        <Polyline
-          coordinates={routeCoords}
-          strokeWidth={5}
+      ))}
+
+      {/* Traçando a rota até o abrigo mais próximo */}
+      {nearestShelter && (
+        <MapViewDirections
+          origin={userLocation}
+          destination={nearestShelter.location}
+          apikey={GOOGLE_MAPS_APIKEY}
+          strokeWidth={4}
           strokeColor="blue"
         />
-      </MapView>
-    </View>
+      )}
+    </MapView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  map: {
     flex: 1,
   },
-  map: {
-    width: Dimensions.get("window").width,
-    height: Dimensions.get("window").height,
+  center: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
