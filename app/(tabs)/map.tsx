@@ -28,7 +28,7 @@ const shelters = [
   },
 ];
 
-const GOOGLE_MAPS_APIKEY = "segredo";
+const GOOGLE_MAPS_APIKEY = "AIzaSyC1h--AjhV-kE_uKmawMgKihC_8lQ6En08";
 
 export default function MapScreen() {
   const router = useRouter();
