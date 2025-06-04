@@ -1,12 +1,12 @@
 import { Ionicons } from "@expo/vector-icons";
 import React from "react";
 import {
-    Platform,
-    SafeAreaView,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View,
+  Platform,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import { useShelterRoute } from "../../hooks/useShelterRoute";
@@ -71,7 +71,8 @@ export default function LocationConfirmation({
       <View style={styles.contentContainer}>
         <Text style={styles.title}>Identificamos a sua localização!</Text>
         <Text style={styles.description}>
-          O desastre e/ou local de resgate fica nessa localização onde você está?
+          O desastre e/ou local de resgate fica nessa localização onde você
+          está?
         </Text>
 
         {/* Mapa */}
@@ -93,14 +94,18 @@ export default function LocationConfirmation({
           </MapView>
         </View>
 
-        {/* Botões de Ação */}
         <View style={styles.actionsContainer}>
           <TouchableOpacity style={styles.confirmButton} onPress={onConfirm}>
             <Text style={styles.confirmButtonText}>Sim, Avançar</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.alternateButton} onPress={onSelectOther}>
-            <Text style={styles.alternateButtonText}>Não, escolher outro ponto</Text>
+          <TouchableOpacity
+            style={styles.alternateButton}
+            onPress={onSelectOther}
+          >
+            <Text style={styles.alternateButtonText}>
+              Não, escolher outro ponto
+            </Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -221,4 +226,4 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     color: "#F83758",
   },
-}); 
+});

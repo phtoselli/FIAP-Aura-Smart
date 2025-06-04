@@ -26,6 +26,36 @@ const shelters = [
       "Rua Capitão Bento Mascarenhas Jequitinhonha, 789 - Santa Rosália, Sorocaba - SP",
     location: { latitude: -23.493478, longitude: -47.448853 },
   },
+  {
+    id: "4",
+    name: "Abrigo Vila Hortência",
+    address: "Av. Nogueira Padilha, 1010 - Vila Hortência, Sorocaba - SP",
+    location: { latitude: -23.507734, longitude: -47.427831 },
+  },
+  {
+    id: "5",
+    name: "Abrigo Éden",
+    address: "Rua Salvador Leite Marques, 215 - Éden, Sorocaba - SP",
+    location: { latitude: -23.544123, longitude: -47.389876 },
+  },
+  {
+    id: "6",
+    name: "Abrigo Cajuru",
+    address: "Rua Francisco Moron, 45 - Cajuru do Sul, Sorocaba - SP",
+    location: { latitude: -23.578155, longitude: -47.437201 },
+  },
+  {
+    id: "7",
+    name: "Abrigo Campolim",
+    address: "Rua Antônio Perez Hernandez, 35 - Campolim, Sorocaba - SP",
+    location: { latitude: -23.5197, longitude: -47.45501 },
+  },
+  {
+    id: "8",
+    name: "Abrigo Mineirão",
+    address: "Rua José Raimundo da Silva, 142 - Mineirão, Sorocaba - SP",
+    location: { latitude: -23.51744, longitude: -47.470321 },
+  },
 ];
 
 const GOOGLE_MAPS_APIKEY = "AIzaSyC1h--AjhV-kE_uKmawMgKihC_8lQ6En08";
@@ -80,7 +110,7 @@ export default function MapScreen() {
             pinColor={shelter.id === nearestShelter?.id ? "green" : "red"}
             onPress={() =>
               router.push({
-                pathname: "/details",
+                pathname: "/screens/details",
                 params: { shelter: JSON.stringify(shelter) },
               })
             }

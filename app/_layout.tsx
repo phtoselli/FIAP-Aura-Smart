@@ -9,7 +9,7 @@ import { StatusBar } from "expo-status-bar";
 import "react-native-reanimated";
 
 import { useColorScheme } from "@/hooks/useColorScheme";
-import ShelterDetailScreen from "./(tabs)/details";
+import ShelterDetailScreen from "./screens/details";
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
