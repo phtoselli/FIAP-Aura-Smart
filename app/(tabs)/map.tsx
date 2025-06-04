@@ -1,8 +1,10 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, SafeAreaView, Image } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import MapViewDirections from "react-native-maps-directions";
 import { useShelterRoute } from "../../hooks/useShelterRoute";
+import { useRoute, useNavigation } from "@react-navigation/native";
+import { useRouter } from "expo-router";
 
 const shelters = [
   {
@@ -29,6 +31,7 @@ const shelters = [
 const GOOGLE_MAPS_APIKEY = "segredo";
 
 export default function MapScreen() {
+  const router = useRouter();
   const { userLocation, nearestShelter } = useShelterRoute(shelters);
 
   if (!userLocation) {
@@ -40,48 +43,71 @@ export default function MapScreen() {
   }
 
   return (
-    <MapView
-      style={styles.map}
-      initialRegion={{
-        latitude: userLocation.latitude,
-        longitude: userLocation.longitude,
-        latitudeDelta: 0.05,
-        longitudeDelta: 0.05,
-      }}
-    >
-      {/* Localização do Usuário */}
-      <Marker
-        coordinate={userLocation}
-        title="Você está aqui"
-        pinColor="blue"
-      />
+    <SafeAreaView style={styles.container}>
+      <View style={styles.header}>
+        <View style={styles.logoContainer}>
+          <Image
+            source={require("../../assets/images/AuraSmartLogo.png")}
+            style={styles.logoImage}
+            resizeMode="contain"
+          />
+        </View>
+      </View>
 
-      {/* Marcadores dos abrigos */}
-      {shelters.map((shelter) => (
+      <MapView
+        style={styles.map}
+        initialRegion={{
+          latitude: userLocation.latitude,
+          longitude: userLocation.longitude,
+          latitudeDelta: 0.05,
+          longitudeDelta: 0.05,
+        }}
+      >
+        {/* Localização do Usuário */}
         <Marker
-          key={shelter.id}
-          coordinate={shelter.location}
-          title={shelter.name}
-          description={shelter.address}
-          pinColor={shelter.id === nearestShelter?.id ? "green" : "red"}
+          coordinate={userLocation}
+          title="Você está aqui"
+          pinColor="blue"
         />
-      ))}
 
-      {/* Traçando a rota até o abrigo mais próximo */}
-      {nearestShelter && (
-        <MapViewDirections
-          origin={userLocation}
-          destination={nearestShelter.location}
-          apikey={GOOGLE_MAPS_APIKEY}
-          strokeWidth={4}
-          strokeColor="blue"
-        />
-      )}
-    </MapView>
+        {/* Marcadores dos abrigos */}
+        {shelters.map((shelter) => (
+          <Marker
+            key={shelter.id}
+            coordinate={shelter.location}
+            title={shelter.name}
+            description={shelter.address}
+            pinColor={shelter.id === nearestShelter?.id ? "green" : "red"}
+            onPress={() =>
+              router.push({
+                pathname: "/details",
+                params: { shelter: JSON.stringify(shelter) },
+              })
+            }
+          />
+        ))}
+
+        {/* Traçando a rota até o abrigo mais próximo */}
+        {nearestShelter && (
+          <MapViewDirections
+            origin={userLocation}
+            destination={nearestShelter.location}
+            apikey={GOOGLE_MAPS_APIKEY}
+            strokeWidth={4}
+            strokeColor="blue"
+          />
+        )}
+      </MapView>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#F5F5F5",
+    paddingHorizontal: 20,
+  },
   map: {
     flex: 1,
   },
@@ -89,5 +115,23 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+  },
+  header: {
+    paddingTop: 20,
+    paddingBottom: 20,
+    alignItems: "center",
+  },
+  logoContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  logoImage: {
+    height: 40,
+    width: 200,
+  },
+  prefeituraImage: {
+    height: 30,
+    width: 120,
+    marginLeft: 5,
   },
 });

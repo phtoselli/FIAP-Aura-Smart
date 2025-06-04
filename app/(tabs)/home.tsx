@@ -13,7 +13,7 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  View
+  View,
 } from "react-native";
 
 export default function Home() {
@@ -22,7 +22,8 @@ export default function Home() {
   const colors = Colors["light"];
 
   const [isHelpModalVisible, setIsHelpModalVisible] = useState(false);
-  const [isConfirmationModalVisible, setIsConfirmationModalVisible] = useState(false);
+  const [isConfirmationModalVisible, setIsConfirmationModalVisible] =
+    useState(false);
   const [confirmationAction, setConfirmationAction] = useState<{
     title: string;
     actionText: string;
@@ -55,8 +56,12 @@ export default function Home() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="dark-content" backgroundColor="#F5F5F5" translucent={false} />
-      
+      <StatusBar
+        barStyle="dark-content"
+        backgroundColor="#F5F5F5"
+        translucent={false}
+      />
+
       {/* Modal de Confirmação */}
       {confirmationAction && (
         <ConfirmationModal
@@ -96,59 +101,42 @@ export default function Home() {
 
       {/* Título da Seção */}
       <View style={styles.sectionTitleContainer}>
-        <Text style={styles.sectionTitle}>
-          Em caso de desastre:
-        </Text>
+        <Text style={styles.sectionTitle}>Em caso de desastre:</Text>
       </View>
 
       {/* Botões de Ação */}
       <View style={styles.actionsContainer}>
-        <TouchableOpacity 
+        <TouchableOpacity
           style={styles.actionButton}
           onPress={handleDesasterPress}
         >
           <View style={styles.actionButtonContent}>
             <View style={styles.actionButtonText}>
-              <Text style={styles.actionButtonTitle}>
-                Indicar um desastre
-              </Text>
+              <Text style={styles.actionButtonTitle}>Indicar um desastre</Text>
               <Text style={styles.actionButtonSubtitle}>
                 Desabamento, incêndio
               </Text>
             </View>
-            <Ionicons 
-              name="chevron-forward" 
-              size={24} 
-              color="#FFFFFF" 
-            />
+            <Ionicons name="chevron-forward" size={24} color="#FFFFFF" />
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity 
-          style={styles.actionButton}
-          onPress={handleHelpPress}
-        >
+        <TouchableOpacity style={styles.actionButton} onPress={handleHelpPress}>
           <View style={styles.actionButtonContent}>
             <View style={styles.actionButtonText}>
-              <Text style={styles.actionButtonTitle}>
-                Pedir ajuda
-              </Text>
+              <Text style={styles.actionButtonTitle}>Pedir ajuda</Text>
               <Text style={styles.actionButtonSubtitle}>
                 Pra mim ou para alguém
               </Text>
             </View>
-            <Ionicons 
-              name="chevron-forward" 
-              size={24} 
-              color="#FFFFFF" 
-            />
+            <Ionicons name="chevron-forward" size={24} color="#FFFFFF" />
           </View>
         </TouchableOpacity>
       </View>
 
       {/* Cards de Funcionalidades */}
       <View style={styles.cardsContainer}>
-        <TouchableOpacity 
+        <TouchableOpacity
           style={styles.card}
           onPress={() => router.push("/map")}
         >
@@ -160,16 +148,14 @@ export default function Home() {
             />
           </View>
           <View style={styles.cardContent}>
-            <Text style={styles.cardTitle}>
-              Mapa de rotas e abrigos
-            </Text>
+            <Text style={styles.cardTitle}>Mapa de rotas e abrigos</Text>
             <Text style={styles.cardDescription}>
               Conheça as rotas em caso de urgência e os pontos de abrigo.
             </Text>
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity 
+        <TouchableOpacity
           style={styles.card}
           onPress={() => router.push("/tips")}
         >
@@ -181,11 +167,10 @@ export default function Home() {
             />
           </View>
           <View style={styles.cardContent}>
-            <Text style={styles.cardTitle}>
-              Dicas
-            </Text>
+            <Text style={styles.cardTitle}>Dicas</Text>
             <Text style={styles.cardDescription}>
-              Conheça todas as dicas de sobrevivência em caso de desastre em nossa cidade.
+              Conheça todas as dicas de sobrevivência em caso de desastre em
+              nossa cidade.
             </Text>
           </View>
         </TouchableOpacity>
@@ -194,9 +179,7 @@ export default function Home() {
       {/* Footer Parceria */}
       <View style={styles.footerContainer}>
         <View style={styles.footerContent}>
-          <Text style={styles.footerText}>
-            Parceria oficial com a: {" "}
-          </Text>
+          <Text style={styles.footerText}>Parceria oficial com a: </Text>
           <Image
             source={require("../../assets/images/logo-principal-mariana.png")}
             style={styles.prefeituraImage}
@@ -211,17 +194,17 @@ export default function Home() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5F5F5',
+    backgroundColor: "#F5F5F5",
     paddingHorizontal: 20,
   },
   header: {
     paddingTop: 20,
     paddingBottom: 20,
-    alignItems: 'center',
+    alignItems: "center",
   },
   logoContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   logoImage: {
     height: 40,
@@ -232,29 +215,29 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     borderRadius: 12,
     borderWidth: 1,
-    borderColor: '#F83758',
-    backgroundColor: '#FFFFFF',
+    borderColor: "#F83758",
+    backgroundColor: "#FFFFFF",
     marginBottom: 30,
   },
   locationText: {
     fontSize: 16,
-    fontFamily: Platform.OS === 'ios' ? 'System' : 'Roboto',
-    textAlign: 'center',
-    color: '#727272',
+    fontFamily: Platform.OS === "ios" ? "System" : "Roboto",
+    textAlign: "center",
+    color: "#727272",
   },
   locationCity: {
-    fontWeight: '600',
-    color: '#F83758',
+    fontWeight: "600",
+    color: "#F83758",
   },
   sectionTitleContainer: {
     marginBottom: 20,
   },
   sectionTitle: {
     fontSize: 20,
-    fontFamily: Platform.OS === 'ios' ? 'System' : 'Roboto',
-    fontWeight: '600',
-    color: '#000000',
-    textAlign: 'center',
+    fontFamily: Platform.OS === "ios" ? "System" : "Roboto",
+    fontWeight: "600",
+    color: "#000000",
+    textAlign: "center",
   },
   actionsContainer: {
     marginBottom: 30,
@@ -263,9 +246,9 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     padding: 20,
     marginBottom: 15,
-    backgroundColor: '#F83758',
+    backgroundColor: "#F83758",
     elevation: 2,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: {
       width: 0,
       height: 2,
@@ -274,37 +257,37 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
   },
   actionButtonContent: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   actionButtonText: {
     flex: 1,
   },
   actionButtonTitle: {
     fontSize: 18,
-    fontFamily: Platform.OS === 'ios' ? 'System' : 'Roboto',
-    fontWeight: '600',
-    color: '#FFFFFF',
+    fontFamily: Platform.OS === "ios" ? "System" : "Roboto",
+    fontWeight: "600",
+    color: "#FFFFFF",
     marginBottom: 4,
   },
   actionButtonSubtitle: {
     fontSize: 14,
-    fontFamily: Platform.OS === 'ios' ? 'System' : 'Roboto',
-    color: '#FFFFFF',
+    fontFamily: Platform.OS === "ios" ? "System" : "Roboto",
+    color: "#FFFFFF",
     opacity: 0.9,
   },
   cardsContainer: {
     flex: 1,
   },
   card: {
-    flexDirection: 'row',
+    flexDirection: "row",
     padding: 16,
     marginBottom: 16,
     borderRadius: 12,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: "#FFFFFF",
     elevation: 1,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: {
       width: 0,
       height: 1,
@@ -314,8 +297,8 @@ const styles = StyleSheet.create({
   },
   cardImageContainer: {
     marginRight: 16,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   cardImage: {
     width: 64,
@@ -324,40 +307,40 @@ const styles = StyleSheet.create({
   },
   cardContent: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   cardTitle: {
     fontSize: 16,
-    fontFamily: Platform.OS === 'ios' ? 'System' : 'Roboto',
-    fontWeight: '600',
-    color: '#000000',
+    fontFamily: Platform.OS === "ios" ? "System" : "Roboto",
+    fontWeight: "600",
+    color: "#000000",
     marginBottom: 6,
   },
   cardDescription: {
     fontSize: 14,
-    fontFamily: Platform.OS === 'ios' ? 'System' : 'Roboto',
-    color: '#727272',
+    fontFamily: Platform.OS === "ios" ? "System" : "Roboto",
+    color: "#727272",
     lineHeight: 20,
   },
   footerContainer: {
     paddingVertical: 20,
-    alignItems: 'center',
-    backgroundColor: '#FFFFFF',
-    marginTop: 'auto',
+    alignItems: "center",
+    backgroundColor: "#FFFFFF",
+    marginTop: "auto",
     marginHorizontal: -20,
     paddingHorizontal: 20,
   },
   footerContent: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexWrap: 'wrap',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    flexWrap: "wrap",
   },
   footerText: {
     fontSize: 12,
-    fontFamily: Platform.OS === 'ios' ? 'System' : 'Roboto',
-    color: '#727272',
-    textAlign: 'center',
+    fontFamily: Platform.OS === "ios" ? "System" : "Roboto",
+    color: "#727272",
+    textAlign: "center",
   },
   prefeituraImage: {
     height: 30,
@@ -365,4 +348,3 @@ const styles = StyleSheet.create({
     marginLeft: 5,
   },
 });
-

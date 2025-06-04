@@ -9,6 +9,7 @@ import { StatusBar } from "expo-status-bar";
 import "react-native-reanimated";
 
 import { useColorScheme } from "@/hooks/useColorScheme";
+import ShelterDetailScreen from "./(tabs)/details";
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
@@ -27,6 +28,7 @@ export default function RootLayout() {
         <Stack.Screen name="splash" />
         <Stack.Screen name="(tabs)" />
         <Stack.Screen name="+not-found" />
+        {/* <Stack.Screen name="ShelterDetail" component={ShelterDetailScreen} options={{ title: 'Detalhe' }} /> */}
       </Stack>
 
       <StatusBar style="auto" />
