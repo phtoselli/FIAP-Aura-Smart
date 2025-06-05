@@ -1,50 +1,53 @@
-# Welcome to your Expo app 👋
+# 🌟 Bem-vindo ao Aura Smart
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+**Aura Smart** é um aplicativo desenvolvido como solução para situações de **desastres naturais**, com o objetivo de **salvar vidas** por meio da tecnologia. Criado para o desafio [Global Solution 2025 da FIAP](https://www.fiap.com.br/graduacao/global-solution/), o app fornece suporte essencial para pessoas afetadas, conectando-as a recursos próximos e orientações úteis em momentos críticos.
 
-## Get started
+## 💡 Funcionalidades Principais
 
-1. Install dependencies
+- 🗺️ **Mapas Interativos**  
+  Veja abrigos e pontos de apoio próximos em tempo real, com base na sua localização.
 
-   ```bash
-   npm install
-   ```
+- 🆘 **Botão de Emergência**  
+  Acione ajuda com um toque e envie sua localização para equipes de resgate.
 
-2. Start the app
+- 📚 **Dicas de Sobrevivência**  
+  Acesse informações práticas de como se comportar em diferentes tipos de desastre (enchentes, incêndios, terremotos e mais).
 
-   ```bash
-   npx expo start
-   ```
+## 🚀 Como Começar
 
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+1. **Clone o repositório**
 
 ```bash
-npm run reset-project
+git clone https://github.com/phtoselli/FIAP-Aura-Smart.git
+cd Aura-Smart
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+2. **Instale as dependências**
 
-## Learn more
+```bash
+ npm install
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+3. **Inicie o aplicativo**
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+```bash
+npx expo start
+```
 
-## Join the community
+Com esse comando, você poderá rodar o app em:
 
-Join our community of developers creating universal apps.
+📱 Expo Go
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+🧪 Builds de desenvolvimento
+
+🤖 Emulador Android
+
+🍏 Simulador iOS
+
+## 🏁 Sobre o Projeto
+
+Este projeto foi desenvolvido para o **[Global Solution 2025](https://www.fiap.com.br/graduacao/global-solution/)**, uma iniciativa da **FIAP** voltada para a criação de soluções inovadoras com **alto impacto social**.
+
+Feito com ❤️ por um time que acredita na força da **empatia**, da **tecnologia** e da **ação** em momentos que mais importam.
+
+**#AuraSmart #GlobalSolution2025 #FIAP**
