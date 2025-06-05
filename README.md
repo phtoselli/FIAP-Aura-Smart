@@ -13,16 +13,14 @@
 - 📚 **Dicas de Sobrevivência**  
   Acesse informações práticas de como se comportar em diferentes tipos de desastre (enchentes, incêndios, terremotos e mais).
 
----
-
 ## 🚀 Como Começar
 
 1. **Clone o repositório**
 
-   ```bash
-   git clone https://github.com/phtoselli/FIAP-Aura-Smart.git
-   cd Aura-Smart
-   ```
+```bash
+git clone https://github.com/phtoselli/FIAP-Aura-Smart.git
+cd Aura-Smart
+```
 
 2. **Instale as dependências**
 
