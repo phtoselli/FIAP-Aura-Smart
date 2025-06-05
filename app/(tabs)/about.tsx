@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import * as Axios from "axios";
 import {
   Image,
   Platform,
@@ -7,17 +8,113 @@ import {
   StyleSheet,
   Text,
   View,
+  ActivityIndicator,
 } from "react-native";
 
+interface PhaseSection {
+  phaseHighlight: string;
+  phaseSubText: string;
+  items: string[];
+}
+
+interface AboutContent {
+  id: string;
+  mainTitleHighlight: string;
+  mainTitleNormal: string;
+  sectionProposalTitle: string;
+  sectionProposalDescription1: string;
+  sectionProposalDescription2: string;
+  sectionHowItWorksTitle: string;
+  sectionsPhased: PhaseSection[];
+}
+
 export default function About() {
+  const [aboutData, setAboutData] = useState<AboutContent | null>(null);
+  const [carregando, setCarregando] = useState(true);
+  const [erro, setErro] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchAboutContent = async () => {
+      try {
+        const API_URL =
+          "https://683b982c28a0b0f2fdc50295.mockapi.io/fiap-aura-smart-backend/about";
+
+        const response = await Axios.default.get<AboutContent[]>(API_URL);
+        setAboutData(response.data[0]);
+      } catch (error) {
+        console.error("Erro ao buscar conteúdo 'Sobre':", error);
+        if (error instanceof Error) {
+          setErro(`Não foi possível carregar o conteúdo: ${error.message}`);
+        } else {
+          setErro("Não foi possível carregar o conteúdo. Erro desconhecido.");
+        }
+      } finally {
+        setCarregando(false);
+      }
+    };
+
+    fetchAboutContent();
+  }, []);
+
+  if (carregando) {
+    return (
+      <SafeAreaView style={styles.container}>
+        <View style={styles.header}>
+          <Image
+            source={require("../../assets/images/AuraSmartLogo.png")}
+            style={styles.logoImage}
+            resizeMode="contain"
+          />
+        </View>
+        <View style={styles.loadingErrorContainer}>
+          <ActivityIndicator size="large" color="#F83758" />
+          <Text style={styles.loadingErrorText}>Carregando conteúdo...</Text>
+        </View>
+      </SafeAreaView>
+    );
+  }
+
+  if (erro) {
+    return (
+      <SafeAreaView style={styles.container}>
+        <View style={styles.header}>
+          <Image
+            source={require("../../assets/images/AuraSmartLogo.png")}
+            style={styles.logoImage}
+            resizeMode="contain"
+          />
+        </View>
+        <View style={styles.loadingErrorContainer}>
+          <Text style={styles.loadingErrorText}>{erro}</Text>
+        </View>
+      </SafeAreaView>
+    );
+  }
+
+  if (!aboutData) {
+    return (
+      <SafeAreaView style={styles.container}>
+        <View style={styles.header}>
+          <Image
+            source={require("../../assets/images/AuraSmartLogo.png")}
+            style={styles.logoImage}
+            resizeMode="contain"
+          />
+        </View>
+        <View style={styles.loadingErrorContainer}>
+          <Text style={styles.loadingErrorText}>Conteúdo não encontrado.</Text>
+        </View>
+      </SafeAreaView>
+    );
+  }
+
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView 
+      <ScrollView
         style={styles.scrollView}
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
       >
-        {/* Header com Logo */}
         <View style={styles.header}>
           <Image
             source={require("../../assets/images/AuraSmartLogo.png")}
@@ -26,29 +123,34 @@ export default function About() {
           />
         </View>
 
-        {/* Título Principal */}
         <View style={styles.titleSection}>
           <Text style={styles.mainTitle}>
-            Um <Text style={styles.highlightText}>ecossistema de proteção urbana</Text>, tornando as cidades mais resilientes.
+            Um{" "}
+            <Text style={styles.highlightText}>
+              {aboutData.mainTitleHighlight}
+            </Text>
+            {aboutData.mainTitleNormal}
           </Text>
         </View>
 
-        {/* Seção: Qual a proposta? */}
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Qual a proposta?</Text>
-          <Text style={styles.description}>
-            <Text style={styles.boldText}>AuraSmart</Text> é um ecossistema de proteção urbana focado em cidades mais vulneráveis (a desastres, enchentes queimadas) para torná-las mais resilientes.
+          <Text style={styles.sectionTitle}>
+            {aboutData.sectionProposalTitle}
           </Text>
           <Text style={styles.description}>
-            Através de parcerias com prefeituras e governos, atuamos tanto em uma jornada de prevenção de acidentes / queimadas / desabamentos quanto durante e pós calamidades, como enchentes, incêndios florestais e desabamento de barragens, etc.
+            <Text style={styles.boldText}>AuraSmart</Text>{" "}
+            {aboutData.sectionProposalDescription1}
+          </Text>
+          <Text style={styles.description}>
+            {aboutData.sectionProposalDescription2}
           </Text>
         </View>
 
-        {/* Seção: Como funciona */}
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Como funciona esse ecossistema de proteção?</Text>
-          
-          {/* Imagem Rota de Fuga */}
+          <Text style={styles.sectionTitle}>
+            {aboutData.sectionHowItWorksTitle}
+          </Text>
+
           <View style={styles.imageContainer}>
             <Image
               source={require("../../assets/images/rota-de-fuga.png")}
@@ -58,76 +160,22 @@ export default function About() {
           </View>
         </View>
 
-        {/* Seção: Antes */}
-        <View style={styles.section}>
-          <Text style={styles.phaseTitle}>
-            <Text style={styles.highlightText}>Antes:</Text> <Text style={styles.subText}>prevenção de acidentes</Text>
-          </Text>
-          <View style={styles.listContainer}>
-            <Text style={styles.listItem}>
-              • Sensores de monitoramento em tempo real (incêndio, cheia de rios, barragens e locais de risco).
+        {aboutData.sectionsPhased.map((phase, index) => (
+          <View key={index} style={styles.section}>
+            <Text style={styles.phaseTitle}>
+              <Text style={styles.highlightText}>{phase.phaseHighlight}:</Text>{" "}
+              <Text style={styles.subText}>{phase.phaseSubText}</Text>
             </Text>
-            <Text style={styles.listItem}>
-              • Uso de IA nos dados de imagens via satélite para tentar prever acidentes.
-            </Text>
-            <Text style={styles.listItem}>
-              • Drones autônomos de monitoramento
-            </Text>
-            <Text style={styles.listItem}>
-              • Infraestrutura urbana de totens, sinalização e alarmes de evacuação com mais velocidades
-            </Text>
-            <Text style={styles.listItem}>
-              • Ações educativas de prevenção em escolas e empresas.
-            </Text>
-            <Text style={styles.listItem}>
-              • Aplicativo de comunicação com a população
-            </Text>
+            <View style={styles.listContainer}>
+              {phase.items.map((item, itemIndex) => (
+                <Text key={itemIndex} style={styles.listItem}>
+                  • {item}
+                </Text>
+              ))}
+            </View>
           </View>
-        </View>
+        ))}
 
-        {/* Seção: Durante */}
-        <View style={styles.section}>
-          <Text style={styles.phaseTitle}>
-            <Text style={styles.highlightText}>Durante</Text><Text style={styles.subText}> uma calamidade</Text>
-          </Text>
-          <View style={styles.listContainer}>
-            <Text style={styles.listItem}>
-              • Alarmes urbanos de evacuação
-            </Text>
-            <Text style={styles.listItem}>
-              • Infraestrutura a prova de água de energia focada em indicar rotas de fuga
-            </Text>
-            <Text style={styles.listItem}>
-              • Aplicativo para a população indicar calamidades e pedir ajuda.
-            </Text>
-            <Text style={styles.listItem}>
-              • Balões com wifi gratuito em casos de interrupção de serviço.
-            </Text>
-            <Text style={styles.listItem}>
-              • Geolocalização de pessoas que precisam de ajuda.
-            </Text>
-          </View>
-        </View>
-
-        {/* Seção: Depois */}
-        <View style={styles.section}>
-          <Text style={styles.phaseTitle}>
-            <Text style={styles.highlightText}>Depois</Text> <Text style={styles.subText}>de uma calamidade</Text>
-          </Text>
-          <View style={styles.listContainer}>
-            <Text style={styles.listItem}>
-              • Drones de busca de sobreviventes semi controlados, com câmeras termais e inteligentes.
-            </Text>
-            <Text style={styles.listItem}>
-              • Canal de comunicação oficial dos governos para indicar rotas e abrigos
-            </Text>
-            <Text style={styles.listItem}>
-              • Indicação de pontos de ajuda para além dos abrigos
-            </Text>
-          </View>
-        </View>
-
-        {/* Imagem Final */}
         <View style={styles.finalImageContainer}>
           <Image
             source={require("../../assets/images/aura-balão.png")}
@@ -240,5 +288,16 @@ const styles = StyleSheet.create({
   finalImage: {
     width: "100%",
     height: 250,
+  },
+  loadingErrorContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 20,
+  },
+  loadingErrorText: {
+    fontSize: 18,
+    color: "#555",
+    textAlign: "center",
   },
 });

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Image,
   Platform,
@@ -9,49 +9,90 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import axios from "axios"; 
+
+
+interface Tip {
+  id: string; 
+  title: string;
+  description: string;
+}
 
 export default function Tips() {
-  const tipCards = [
-    {
-      id: 1,
-      title: "Totens públicos",
-      description: "Conheça toda a malha de totens da cidade.",
-      image: require("../../assets/images/Totens-Publicos.png"),
-    },
-    {
-      id: 2,
-      title: "Em caso de enchente",
-      description: "Procedimentos em caso de enchentes",
-      image: require("../../assets/images/enchente.png"),
-    },
-    {
-      id: 3,
-      title: "Em caso rompimento de barragem",
-      description: "O que fazer?",
-      image: require("../../assets/images/rompimento-de-barragem.png"),
-    },
-    {
-      id: 4,
-      title: "Alarmes urbanos de evacuação",
-      description: "Conheça os tipos de alarmes",
-      image: require("../../assets/images/Alarme.png"),
-    },
-    {
-      id: 5,
-      title: "Ações educativas nas escolas",
-      description: "Veja o calendário oficial de ações",
-      image: require("../../assets/images/ações-educativas.png"),
-    },
-  ];
+  const [dicas, setDicas] = useState<Tip[]>([]);
+  const [carregando, setCarregando] = useState(true);
+  const [erro, setErro] = useState<string | null>(null);
 
-  const handleCardPress = (tipId: number) => {
-    // Aqui você pode implementar navegação para telas específicas de cada dica
+  const localImages: { [key: string]: any } = {  
+    "Totens públicos": require("../../assets/images/Totens-Publicos.png"),
+    "Em caso de enchente": require("../../assets/images/enchente.png"),
+    "Em caso rompimento de barragem": require("../../assets/images/rompimento-de-barragem.png"),
+    "Alarmes urbanos de evacuação": require("../../assets/images/Alarme.png"),
+    "Ações educativas nas escolas": require("../../assets/images/ações-educativas.png"),
+  };
+
+  useEffect(() => {
+    const fetchDicas = async () => {
+      try {
+        const API_URL = "https://683b982c28a0b0f2fdc50295.mockapi.io/fiap-aura-smart-backend/tips";
+
+        const response = await axios.get<Tip[]>(API_URL);
+        setDicas(response.data);
+      } catch (error) {
+        console.error("Erro ao buscar dicas:", error);
+        if (error instanceof Error) {
+            setErro(`Não foi possível carregar as dicas: ${error.message}`);
+        } else {
+            setErro("Não foi possível carregar as dicas. Erro desconhecido.");
+        }
+      } finally {
+        setCarregando(false);
+      }
+    };
+
+    fetchDicas();
+  }, []); 
+
+  const handleCardPress = (tipId: string) => { 
     console.log(`Dica selecionada: ${tipId}`);
   };
 
+  if (carregando) {
+    return (
+      <SafeAreaView style={styles.container}>
+        <View style={styles.header}>
+          <Image
+            source={require("../../assets/images/AuraSmartLogo.png")}
+            style={styles.logoImage}
+            resizeMode="contain"
+          />
+        </View>
+        <View style={styles.loadingErrorContainer}>
+          <Text style={styles.loadingErrorText}>Carregando dicas...</Text>
+        </View>
+      </SafeAreaView>
+    );
+  }
+
+  if (erro) {
+    return (
+      <SafeAreaView style={styles.container}>
+        <View style={styles.header}>
+          <Image
+            source={require("../../assets/images/AuraSmartLogo.png")}
+            style={styles.logoImage}
+            resizeMode="contain"
+          />
+        </View>
+        <View style={styles.loadingErrorContainer}>
+          <Text style={styles.loadingErrorText}>{erro}</Text>
+        </View>
+      </SafeAreaView>
+    );
+  }
+
   return (
     <SafeAreaView style={styles.container}>
-      {/* Header com Logo */}
       <View style={styles.header}>
         <Image
           source={require("../../assets/images/AuraSmartLogo.png")}
@@ -59,28 +100,26 @@ export default function Tips() {
           resizeMode="contain"
         />
       </View>
-
-      {/* Lista de Dicas */}
-      <ScrollView 
+      <ScrollView
         style={styles.scrollView}
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
       >
-        {tipCards.map((tip) => (
+        {dicas.map((tip) => ( 
           <TouchableOpacity
-            key={tip.id}
+            key={tip.id} 
             style={styles.tipCard}
             onPress={() => handleCardPress(tip.id)}
             activeOpacity={0.7}
           >
             <View style={styles.cardImageContainer}>
               <Image
-                source={tip.image}
+                source={localImages[tip.title]} 
                 style={styles.cardImage}
                 resizeMode="cover"
               />
             </View>
-            
+
             <View style={styles.cardContent}>
               <Text style={styles.cardTitle}>{tip.title}</Text>
               <Text style={styles.cardDescription}>{tip.description}</Text>
@@ -153,5 +192,17 @@ const styles = StyleSheet.create({
     fontWeight: "400",
     color: "#727272",
     lineHeight: 20,
+  },
+ 
+  loadingErrorContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+  },
+  loadingErrorText: {
+    fontSize: 18,
+    color: '#555',
+    textAlign: 'center',
   },
 });
