@@ -17,19 +17,19 @@ export default function Splash() {
   useEffect(() => {
     const timer = setTimeout(() => {
       router.replace("/(tabs)/home");
-    }, 10000);
-
+    }, 3000);
     return () => clearTimeout(timer);
   }, []);
 
   return (
     <View style={styles.container}>
-      <Image
-        source={require("../assets/images/splash-drone.png")}
-        style={styles.droneImage}
-        resizeMode="cover"
-      />
-
+      <View style={styles.droneContainer}>
+        <Image
+          source={require("../assets/images/splash-drone.png")}
+          style={styles.droneImage}
+          resizeMode="cover"
+        />
+      </View>
       <View style={styles.content}>
         <Image
           source={require("../assets/images/AuraSmartLogo.png")}
@@ -41,7 +41,7 @@ export default function Splash() {
 
         <Text style={styles.description}>
           Um{" "}
-          <Text style={styles.highlight}>ecossistema de proteção urbana</Text>,{" "}
+          <Text style={styles.highlight}>ecossistema de proteção urbana</Text>,
           tornando as cidades mais resilientes.
         </Text>
 
@@ -60,16 +60,18 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
   },
+  droneContainer: {
+    height: "55%",
+  },
   droneImage: {
     width: "100%",
-    height: height * 0.4,
+    height: "100%",
   },
   content: {
     alignItems: "center",
     paddingHorizontal: 24,
     paddingTop: 20,
   },
-
   logoImage: {
     width: 200,
     height: 60,
