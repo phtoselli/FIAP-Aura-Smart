@@ -20,6 +20,36 @@
 1. **Clone o repositório**
 
    ```bash
-   git clone https://github.com/seu-usuario/aura-smart.git
+   git clone https://github.com/phtoselli/FIAP-Aura-Smart.git
    cd Aura-Smart
    ```
+
+2. **Instale as dependências**
+
+```bash
+ npm install
+```
+
+3. **Inicie o aplicativo**
+
+```bash
+npx expo start
+```
+
+Com esse comando, você poderá rodar o app em:
+
+📱 Expo Go
+
+🧪 Builds de desenvolvimento
+
+🤖 Emulador Android
+
+🍏 Simulador iOS
+
+## 🏁 Sobre o Projeto
+
+Este projeto foi desenvolvido para o **[Global Solution 2025](https://www.fiap.com.br/graduacao/global-solution/)**, uma iniciativa da **FIAP** voltada para a criação de soluções inovadoras com **alto impacto social**.
+
+Feito com ❤️ por um time que acredita na força da **empatia**, da **tecnologia** e da **ação** em momentos que mais importam.
+
+**#AuraSmart #GlobalSolution2025 #FIAP**
