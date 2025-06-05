@@ -13,6 +13,11 @@
 - 📚 **Dicas de Sobrevivência**  
   Acesse informações práticas de como se comportar em diferentes tipos de desastre (enchentes, incêndios, terremotos e mais).
 
+## ⚙️ Tecnologias Utilizadas
+
+- [**React Native**](https://reactnative.dev/)
+- [**Expo**](https://expo.dev/)
+
 ## 🚀 Como Começar
 
 1. **Clone o repositório**
