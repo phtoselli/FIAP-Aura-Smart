@@ -44,13 +44,15 @@ export default function TabLayout() {
         name="home"
         options={{
           title: "Home",
+          tabBarAccessibilityLabel:
+            "Aba inicial, mostra o resumo e atalhos para as funcionalidades centrais do aplicativo",
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="home" size={24} color={color} />
           ),
           tabBarLabelStyle: {
             fontSize: 12,
-            fontFamily: Platform.OS === 'ios' ? 'System' : 'Roboto',
-            fontWeight: '500',
+            fontFamily: Platform.OS === "ios" ? "System" : "Roboto",
+            fontWeight: "500",
           },
         }}
       />
@@ -58,13 +60,14 @@ export default function TabLayout() {
         name="map"
         options={{
           title: "Mapa",
+          tabBarAccessibilityLabel: "Mapa com localização dos abrigos",
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="location" size={24} color={color} />
           ),
           tabBarLabelStyle: {
             fontSize: 12,
-            fontFamily: Platform.OS === 'ios' ? 'System' : 'Roboto',
-            fontWeight: '500',
+            fontFamily: Platform.OS === "ios" ? "System" : "Roboto",
+            fontWeight: "500",
           },
         }}
       />
@@ -72,13 +75,14 @@ export default function TabLayout() {
         name="tips"
         options={{
           title: "Dicas",
+          tabBarAccessibilityLabel: "Dicas de segurança e orientações úteis",
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="heart" size={24} color={color} />
           ),
           tabBarLabelStyle: {
             fontSize: 12,
-            fontFamily: Platform.OS === 'ios' ? 'System' : 'Roboto',
-            fontWeight: '500',
+            fontFamily: Platform.OS === "ios" ? "System" : "Roboto",
+            fontWeight: "500",
           },
         }}
       />
@@ -86,13 +90,14 @@ export default function TabLayout() {
         name="about"
         options={{
           title: "Sobre o App",
+          tabBarAccessibilityLabel: "Informações sobre o aplicativo ",
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="settings" size={24} color={color} />
           ),
           tabBarLabelStyle: {
             fontSize: 12,
-            fontFamily: Platform.OS === 'ios' ? 'System' : 'Roboto',
-            fontWeight: '500',
+            fontFamily: Platform.OS === "ios" ? "System" : "Roboto",
+            fontWeight: "500",
           },
         }}
       />

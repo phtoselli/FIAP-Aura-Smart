@@ -28,16 +28,25 @@ export default function Splash() {
           source={require("../assets/images/splash-drone.png")}
           style={styles.droneImage}
           resizeMode="cover"
+          accessibilityLabel="Imagem de um Drone branco com uma câmera acoplada"
+          accessibilityRole="image"
         />
       </View>
-      <View style={styles.content}>
+      <View
+        style={styles.content}
+        accessibilityLabel="Área de informação sobre o aplicativo"
+      >
         <Image
           source={require("../assets/images/AuraSmartLogo.png")}
           style={styles.logoImage}
           resizeMode="contain"
+          accessibilityLabel="Imagem do Logo da Aura Smart"
+          accessibilityRole="image"
         />
 
-        <Text style={styles.subtitle}>for smart cities</Text>
+        <Text style={styles.subtitle} accessibilityLanguage="en-US">
+          for smart cities
+        </Text>
 
         <Text style={styles.description}>
           Um{" "}

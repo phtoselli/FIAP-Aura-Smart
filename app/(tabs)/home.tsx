@@ -81,34 +81,35 @@ export default function Home() {
         />
       )}
 
-      {/* Header com Logo */}
       <View style={styles.header}>
         <View style={styles.logoContainer}>
           <Image
             source={require("../../assets/images/AuraSmartLogo.png")}
             style={styles.logoImage}
             resizeMode="contain"
+            accessible={true}
+            accessibilityLabel="Logotipo Aura Smart"
           />
         </View>
       </View>
 
-      {/* Localização */}
       <View style={styles.locationContainer}>
         <Text style={styles.locationText}>
           Você está em: <Text style={styles.locationCity}>Mariana / MG</Text>
         </Text>
       </View>
 
-      {/* Título da Seção */}
       <View style={styles.sectionTitleContainer}>
         <Text style={styles.sectionTitle}>Em caso de desastre:</Text>
       </View>
 
-      {/* Botões de Ação */}
       <View style={styles.actionsContainer}>
         <TouchableOpacity
           style={styles.actionButton}
           onPress={handleDesasterPress}
+          accessibilityRole="button"
+          accessibilityLabel="Indicar um desastre. Desabamento, incêndio"
+          accessibilityHint="Avança para indicar um desastre"
         >
           <View style={styles.actionButtonContent}>
             <View style={styles.actionButtonText}>
@@ -121,7 +122,13 @@ export default function Home() {
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.actionButton} onPress={handleHelpPress}>
+        <TouchableOpacity
+          style={styles.actionButton}
+          onPress={handleHelpPress}
+          accessibilityRole="button"
+          accessibilityLabel="Pedir ajuda. Pra mim ou para alguém"
+          accessibilityHint="Avança para pedir ajuda"
+        >
           <View style={styles.actionButtonContent}>
             <View style={styles.actionButtonText}>
               <Text style={styles.actionButtonTitle}>Pedir ajuda</Text>
@@ -134,11 +141,13 @@ export default function Home() {
         </TouchableOpacity>
       </View>
 
-      {/* Cards de Funcionalidades */}
       <View style={styles.cardsContainer}>
         <TouchableOpacity
           style={styles.card}
           onPress={() => router.push("/map")}
+          accessibilityRole="button"
+          accessibilityLabel="Mapa de rotas e abrigos"
+          accessibilityHint="Navega para a tela com rotas e pontos de abrigo"
         >
           <View style={styles.cardImageContainer}>
             <Image
@@ -158,6 +167,9 @@ export default function Home() {
         <TouchableOpacity
           style={styles.card}
           onPress={() => router.push("/tips")}
+          accessibilityRole="button"
+          accessibilityLabel="Dicas de sobrevivência"
+          accessibilityHint="Navega para dicas sobre o que fazer em caso de desastre"
         >
           <View style={styles.cardImageContainer}>
             <Image
@@ -176,7 +188,6 @@ export default function Home() {
         </TouchableOpacity>
       </View>
 
-      {/* Footer Parceria */}
       <View style={styles.footerContainer}>
         <View style={styles.footerContent}>
           <Text style={styles.footerText}>Parceria oficial com a: </Text>
@@ -184,6 +195,8 @@ export default function Home() {
             source={require("../../assets/images/logo-principal-mariana.png")}
             style={styles.prefeituraImage}
             resizeMode="contain"
+            accessible={true}
+            accessibilityLabel="Logotipo da Prefeitura de Mariana"
           />
         </View>
       </View>

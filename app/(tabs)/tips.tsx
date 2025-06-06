@@ -9,11 +9,10 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import axios from "axios"; 
-
+import axios from "axios";
 
 interface Tip {
-  id: string; 
+  id: string;
   title: string;
   description: string;
 }
@@ -23,7 +22,7 @@ export default function Tips() {
   const [carregando, setCarregando] = useState(true);
   const [erro, setErro] = useState<string | null>(null);
 
-  const localImages: { [key: string]: any } = {  
+  const localImages: { [key: string]: any } = {
     "Totens públicos": require("../../assets/images/Totens-Publicos.png"),
     "Em caso de enchente": require("../../assets/images/enchente.png"),
     "Em caso rompimento de barragem": require("../../assets/images/rompimento-de-barragem.png"),
@@ -34,16 +33,17 @@ export default function Tips() {
   useEffect(() => {
     const fetchDicas = async () => {
       try {
-        const API_URL = "https://683b982c28a0b0f2fdc50295.mockapi.io/fiap-aura-smart-backend/tips";
+        const API_URL =
+          "https://683b982c28a0b0f2fdc50295.mockapi.io/fiap-aura-smart-backend/tips";
 
         const response = await axios.get<Tip[]>(API_URL);
         setDicas(response.data);
       } catch (error) {
         console.error("Erro ao buscar dicas:", error);
         if (error instanceof Error) {
-            setErro(`Não foi possível carregar as dicas: ${error.message}`);
+          setErro(`Não foi possível carregar as dicas: ${error.message}`);
         } else {
-            setErro("Não foi possível carregar as dicas. Erro desconhecido.");
+          setErro("Não foi possível carregar as dicas. Erro desconhecido.");
         }
       } finally {
         setCarregando(false);
@@ -51,9 +51,9 @@ export default function Tips() {
     };
 
     fetchDicas();
-  }, []); 
+  }, []);
 
-  const handleCardPress = (tipId: string) => { 
+  const handleCardPress = (tipId: string) => {
     console.log(`Dica selecionada: ${tipId}`);
   };
 
@@ -65,6 +65,8 @@ export default function Tips() {
             source={require("../../assets/images/AuraSmartLogo.png")}
             style={styles.logoImage}
             resizeMode="contain"
+            accessibilityRole="text"
+            accessibilityLiveRegion="polite"
           />
         </View>
         <View style={styles.loadingErrorContainer}>
@@ -105,23 +107,30 @@ export default function Tips() {
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
       >
-        {dicas.map((tip) => ( 
+        {dicas.map((tip) => (
           <TouchableOpacity
-            key={tip.id} 
+            key={tip.id}
             style={styles.tipCard}
             onPress={() => handleCardPress(tip.id)}
             activeOpacity={0.7}
+            accessible={true}
+            accessibilityRole="button"
+            accessibilityLabel={`Dica: ${tip.title}`}
+            accessibilityHint="Toque para obter mais informações sobre esta dica"
           >
             <View style={styles.cardImageContainer}>
               <Image
-                source={localImages[tip.title]} 
+                source={localImages[tip.title]}
                 style={styles.cardImage}
                 resizeMode="cover"
+                accessibilityLabel={`Imagem representando ${tip.title}`}
               />
             </View>
 
             <View style={styles.cardContent}>
-              <Text style={styles.cardTitle}>{tip.title}</Text>
+              <Text style={styles.cardTitle} accessibilityLanguage="pt-BR">
+                {tip.title}
+              </Text>
               <Text style={styles.cardDescription}>{tip.description}</Text>
             </View>
           </TouchableOpacity>
@@ -193,16 +202,16 @@ const styles = StyleSheet.create({
     color: "#727272",
     lineHeight: 20,
   },
- 
+
   loadingErrorContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     padding: 20,
   },
   loadingErrorText: {
     fontSize: 18,
-    color: '#555',
-    textAlign: 'center',
+    color: "#555",
+    textAlign: "center",
   },
 });

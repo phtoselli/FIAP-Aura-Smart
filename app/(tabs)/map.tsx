@@ -66,7 +66,11 @@ export default function MapScreen() {
 
   if (!userLocation) {
     return (
-      <View style={styles.center}>
+      <View
+        style={styles.center}
+        accessibilityRole="text"
+        accessibilityLiveRegion="polite"
+      >
         <Text>Carregando sua localização...</Text>
       </View>
     );
@@ -75,7 +79,10 @@ export default function MapScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <View style={styles.logoContainer}>
+        <View
+          style={styles.logoContainer}
+          accessibilityLabel="Mapa mostrando sua localização atual e os abrigos disponíveis"
+        >
           <Image
             source={require("../../assets/images/AuraSmartLogo.png")}
             style={styles.logoImage}
@@ -98,6 +105,7 @@ export default function MapScreen() {
           coordinate={userLocation}
           title="Você está aqui"
           pinColor="blue"
+          accessibilityLabel="Sua localização atual"
         />
 
         {/* Marcadores dos abrigos */}
@@ -108,6 +116,13 @@ export default function MapScreen() {
             title={shelter.name}
             description={shelter.address}
             pinColor={shelter.id === nearestShelter?.id ? "green" : "red"}
+            accessibilityLabel={`Abrigo: ${shelter.name}. Endereço: ${
+              shelter.address
+            }. ${
+              shelter.id === nearestShelter?.id
+                ? "Este é o abrigo mais próximo."
+                : ""
+            }`}
             onPress={() =>
               router.push({
                 pathname: "/screens/details",

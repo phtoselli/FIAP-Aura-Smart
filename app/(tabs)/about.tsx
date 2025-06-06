@@ -68,7 +68,13 @@ export default function About() {
         </View>
         <View style={styles.loadingErrorContainer}>
           <ActivityIndicator size="large" color="#F83758" />
-          <Text style={styles.loadingErrorText}>Carregando conteúdo...</Text>
+          <Text
+            style={styles.loadingErrorText}
+            accessibilityLiveRegion="polite"
+            accessible={true}
+          >
+            Carregando conteúdo...
+          </Text>
         </View>
       </SafeAreaView>
     );
@@ -82,6 +88,8 @@ export default function About() {
             source={require("../../assets/images/AuraSmartLogo.png")}
             style={styles.logoImage}
             resizeMode="contain"
+            accessibilityLabel="Logo da Aura Smart"
+            accessibilityRole="image"
           />
         </View>
         <View style={styles.loadingErrorContainer}>
@@ -120,6 +128,7 @@ export default function About() {
             source={require("../../assets/images/AuraSmartLogo.png")}
             style={styles.logoImage}
             resizeMode="contain"
+            accessibilityRole="header"
           />
         </View>
 
@@ -156,6 +165,8 @@ export default function About() {
               source={require("../../assets/images/rota-de-fuga.png")}
               style={styles.rotaFugaImage}
               resizeMode="contain"
+              accessibilityLabel="Diagrama ilustrando uma rota de fuga"
+              accessibilityRole="image"
             />
           </View>
         </View>
@@ -181,6 +192,8 @@ export default function About() {
             source={require("../../assets/images/aura-balão.png")}
             style={styles.finalImage}
             resizeMode="contain"
+            accessibilityLabel="Ilustração de um balão da AuraSmart"
+            accessibilityRole="image"
           />
         </View>
       </ScrollView>
